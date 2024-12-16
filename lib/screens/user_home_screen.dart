@@ -45,13 +45,15 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
   String _estado = 'Entra'; // Estado por defecto
 
   // Mostrar formulario para agregar un carro
-  void _mostrarFormulario() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Agregar Carro'),
-          content: SingleChildScrollView(
+void _mostrarFormulario() {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text('Agregar Automovil'),
+        content: SingleChildScrollView(
+          child: Container(
+            width: 400, // Aquí puedes ajustar el ancho según lo necesites
             child: Column(
               children: [
                 TextField(
@@ -101,46 +103,47 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
               ],
             ),
           ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Cancelar'),
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  // Crear un nuevo carro y agregarlo a la lista
-                  carros.add(Carro(
-                    numero: _numeroController.text,
-                    nombre: _nombreController.text,
-                    winid: int.parse(_winidController.text),
-                    unidadNegocio: _unidadNegocioController.text,
-                    supervisor: _supervisorController.text,
-                    placas: _placasController.text,
-                    telefono: _telefonoController.text,
-                    estado: _estado,
-                  ));
-                  // Limpiar los controladores
-                  _numeroController.clear();
-                  _nombreController.clear();
-                  _winidController.clear();
-                  _unidadNegocioController.clear();
-                  _supervisorController.clear();
-                  _placasController.clear();
-                  _telefonoController.clear();
-                  _estado = 'Entra';
-                });
-                Navigator.pop(context);
-              },
-              child: const Text('Guardar'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () {
+              setState(() {
+                // Crear un nuevo carro y agregarlo a la lista
+                carros.add(Carro(
+                  numero: _numeroController.text,
+                  nombre: _nombreController.text,
+                  winid: int.parse(_winidController.text),
+                  unidadNegocio: _unidadNegocioController.text,
+                  supervisor: _supervisorController.text,
+                  placas: _placasController.text,
+                  telefono: _telefonoController.text,
+                  estado: _estado,
+                ));
+                // Limpiar los controladores
+                _numeroController.clear();
+                _nombreController.clear();
+                _winidController.clear();
+                _unidadNegocioController.clear();
+                _supervisorController.clear();
+                _placasController.clear();
+                _telefonoController.clear();
+                _estado = 'Entra';
+              });
+              Navigator.pop(context);
+            },
+            child: const Text('Guardar'),
+          ),
+        ],
+      );
+    },
+  );
+}
 
   // Mostrar formulario para editar el estado
   void _editarEstado(int index) {
@@ -212,7 +215,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             carros.isEmpty
-                ? const Text('Aún no hay carros registrados.')
+                ? const Text('Aún no hay automovil registrados.')
                 : Expanded(
                     child: SingleChildScrollView(
                       child: DataTable(
@@ -244,7 +247,10 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
             const SizedBox(height: 20),
             FloatingActionButton(
               onPressed: _mostrarFormulario,
-              child: const Icon(Icons.add),
+              child: const Icon(
+              Icons.add,
+              color: Colors.white, 
+            ),
               backgroundColor: Colors.deepPurple,
             ),
           ],
